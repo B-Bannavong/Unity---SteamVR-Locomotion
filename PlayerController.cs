@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        characterController.height = Mathf.Max(characterController.radius, Player.instance.hmdTransform.localPosition.y);
+        characterController.center = new Vector3(Player.instance.hmdTransform.localPosition.x, (characterController.height / 2), Player.instance.hmdTransform.localPosition.z);
+
         Vector3 direction = Player.instance.hmdTransform.TransformDirection(new Vector3(touchPadInput.axis.x, 0, touchPadInput.axis.y));
         character.center = new Vector3(playerCenter.localPosition.x, 1.03f, playerCenter.localPosition.z);
         characterController.Move(speed * Time.deltaTime * Vector3.ProjectOnPlane(direction, Vector3.up) - new Vector3(0, 9.81f, 0)*Time.deltaTime);
